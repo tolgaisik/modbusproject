@@ -1,0 +1,46 @@
+$border-color: rgba(124, 124, 124, 0.103);
+.side-bar {
+    color: #dc3545 !important;
+    position: fixed;
+    width: 4rem;
+    height: 23rem;
+    margin-top: 3rem;
+    padding-top: 10px;
+    left: 6em;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.side-bar > a {
+    color: #dc3545 !important;
+    text-decoration: none;
+}
+.side-item {
+    position: relative;
+    border-radius: 3px;
+    width: 4.5em;
+    height: 4.5em;
+    transition: 0.1s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-direction: column;
+    padding: 2em;
+}
+.side-item:hover {
+    color: white;
+    background-color: #dc3545;
+}
+.side-item:active {
+    background-color: #dc354659;
+}
+.side-icon {
+    font-size: 2em;
+}
+.side-text {
+    font-family: "Nunito", sans-serif;
+    font-size: 1em;
+}

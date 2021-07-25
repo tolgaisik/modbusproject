@@ -1,0 +1,164 @@
+{
+    "F": {
+        "type": "UINT",
+        "readOnly": true,
+        "read": "FC3",
+        "registerAddress": 26,
+        "write": "FC0",
+        "byteOrder": "be",
+        "complement": false
+    },
+    "IA": {
+        "type": "UINT",
+        "readOnly": true,
+        "read": "FC3",
+        "registerAddress": 29,
+        "write": "FC0",
+        "byteOrder": "be",
+        "complement": false
+    },
+    "IB": {
+        "type": "UINT",
+        "readOnly": true,
+        "read": "FC3",
+        "registerAddress": 30,
+        "write": "FC0",
+        "byteOrder": "be",
+        "complement": false
+    },
+    "IC": {
+        "type": "UINT",
+        "readOnly": true,
+        "read": "FC3",
+        "registerAddress": 31,
+        "write": "FC0",
+        "byteOrder": "be",
+        "complement": false
+    },
+    "P": {
+        "type": "DINT",
+        "readOnly": true,
+        "read": "FC3",
+        "registerAddress": 50,
+        "write": "FC0",
+        "byteOrder": "me",
+        "complement": false
+    },
+    "PF": {
+        "type": "INT",
+        "readOnly": true,
+        "read": "FC3",
+        "registerAddress": 264,
+        "write": "FC0",
+        "byteOrder": "be",
+        "complement": false
+    },
+    "Q": {
+        "type": "DINT",
+        "readOnly": true,
+        "read": "FC3",
+        "registerAddress": 213,
+        "write": "FC0",
+        "byteOrder": "me",
+        "complement": false
+    },
+    "SS": {
+        "type": "UINT",
+        "readOnly": true,
+        "read": "FC3",
+        "registerAddress": 223,
+        "write": "FC0",
+        "byteOrder": "me",
+        "complement": false
+    },
+    "VAB": {
+        "type": "UDINT",
+        "readOnly": true,
+        "read": "FC3",
+        "registerAddress": 178,
+        "write": "FC0",
+        "byteOrder": "me",
+        "complement": false
+    },
+    "VAC": {
+        "type": "UDINT",
+        "readOnly": true,
+        "read": "FC3",
+        "registerAddress": 182,
+        "write": "FC0",
+        "byteOrder": "me",
+        "complement": false
+    },
+    "VAN": {
+        "type": "UDINT",
+        "readOnly": true,
+        "read": "FC3",
+        "registerAddress": 166,
+        "write": "FC0",
+        "byteOrder": "me",
+        "complement": false
+    },
+    "VBC": {
+        "type": "UDINT",
+        "readOnly": true,
+        "read": "FC3",
+        "registerAddress": 180,
+        "write": "FC0",
+        "byteOrder": "me",
+        "complement": false
+    },
+    "VBN": {
+        "type": "UDINT",
+        "readOnly": true,
+        "read": "FC3",
+        "registerAddress": 168,
+        "write": "FC0",
+        "byteOrder": "me",
+        "complement": false
+    },
+    "VCN": {
+        "type": "UDINT",
+        "readOnly": true,
+        "read": "FC3",
+        "registerAddress": 170,
+        "write": "FC0",
+        "byteOrder": "me",
+        "complement": false
+    },
+    "WPNEG": {
+        "type": "DINT",
+        "readOnly": true,
+        "read": "FC3",
+        "registerAddress": 230,
+        "write": "FC0",
+        "byteOrder": "me",
+        "complement": false
+    },
+    "WPPOS": {
+        "type": "DINT",
+        "readOnly": true,
+        "read": "FC3",
+        "registerAddress": 232,
+        "write": "FC0",
+        "byteOrder": "me",
+        "complement": false
+    },
+    "WQPOS": {
+        "type": "DINT",
+        "readOnly": true,
+        "read": "FC3",
+        "registerAddress": 234,
+        "write": "FC0",
+        "byteOrder": "be",
+        "complement": false
+    },
+    "WQNEG": {
+        "type": "DINT",
+        "readOnly": true,
+        "read": "FC3",
+        "registerAddress": 236,
+        "write": "FC0",
+        "byteOrder": "me",
+        "complement": false
+    }
+}

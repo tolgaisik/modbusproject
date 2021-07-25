@@ -1,0 +1,67 @@
+$main-color: #1c00bd;
+$m-color: #1e5aff27;
+$text-color: #ff575725;
+$secondary-color: #dc3545;
+$helper-color: #a9f1df56;
+$dead-color: #ffffc77c;
+$background-color: #ffffff;
+$text: 1.4rem;
+$home-color: #6ad3f3a8;
+.bg-container {
+    background-color: $background-color !important;
+    font-size: 0.75rem !important;
+}
+.container-border {
+    border: 1px solid rgba(124, 124, 124, 0.103);
+    border-radius: 10px;
+}
+.reference-col {
+    width: 100%;
+    height: 100%;
+}
+.horizontal-center {
+    display: flex;
+    align-items: center;
+}
+.value-x {
+    color: black !important;
+    padding-left: 10px;
+}
+.value {
+    font-size: 16px;
+    color: $secondary-color !important;
+}
+.home {
+    margin-left: 10rem;
+    margin-right: 5rem;
+    padding-top: 2% !important;
+}
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.device {
+    color: white;
+}
+.plus {
+    color: white;
+    transition: 0.1s ease;
+}
+.plus:hover {
+    color: #dc3545;
+    transform: scale(1.1);
+}
+.link {
+    border: 1px solid black;
+    border-radius: 3px;
+    margin-top: 2px;
+    margin-bottom: 4px;
+    color: #fff;
+    text-decoration: none;
+    transition: 0.2s ease-out;
+}
+.link:hover {
+    color: #dc3545;
+    text-decoration: none;
+}

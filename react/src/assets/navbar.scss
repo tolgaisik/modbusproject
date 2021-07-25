@@ -1,0 +1,28 @@
+$main-color: #1c00bd;
+$m-color: #1e5aff27;
+$text-color: #ff575725;
+$secondary-color: #dc3545;
+$helper-color: #a9f1df56;
+$dead-color: #ffffc77c;
+$background-color: #000000;
+$text: 1.4rem;
+$home-color: #6ad3f3a8;
+.nav-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+}
+.nav-link {
+    transition: 0.3s ease-in-out;
+    color: #cacaca !important;
+    border-radius: 3px;
+    border-bottom: 5px solid #cacaca00;
+}
+.navbar-custom {
+    background-color: $background-color !important;
+}
+.nav-link:hover {
+    background-color: $secondary-color !important;
+    color: white !important;
+}
