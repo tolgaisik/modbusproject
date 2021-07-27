@@ -1,15 +1,19 @@
 import React from "react";
 import { Container, Row, Col, Accordion } from "react-bootstrap";
 import { PlusSquare } from "react-bootstrap-icons";
-import Device from "../components/Device";
+import AddDevice from "../components/AddDevice";
+import ModbusDevice from "../components/ModbusDevice";
+const modbusDevice = {
+	name: "Ankara Birinci İşletme",
+	ip: "123.32.12.5",
+	status: true,
+};
 const MyDevices = () => {
 	return (
 		<Container>
 			<Row>
-				<Device></Device>
-				<Col xl={12} lg={12} md={12} sm={12} className="center">
-					<PlusSquare className="plus" />
-				</Col>
+				<ModbusDevice modbusDevice={modbusDevice}></ModbusDevice>
+				<AddDevice></AddDevice>
 			</Row>
 		</Container>
 	);

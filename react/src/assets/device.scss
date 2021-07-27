@@ -1,0 +1,19 @@
+.add-device {
+	width: 100%;
+}
+.plus {
+	font-size: 1.4em;
+	float: right;
+	color: #dc3545;
+	transition: 0.1s ease;
+}
+.plus:hover {
+	color: #dc3545;
+	transform: scale(1.1);
+}
+.accordion-btn {
+	width: 100%;
+}
+.accordion-btn button {
+	color: #dc3545 !important;
+}
