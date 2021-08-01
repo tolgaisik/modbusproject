@@ -1,16 +1,20 @@
 import axios from "axios";
-import { mutate } from "swr";
 
 export function createNewModbusDevice(modbusDevice) {
 	Object.keys(modbusDevice).forEach((key) => {
-		if (key !== "name" && key !== "IP")
+		if (
+			key !== "name" &&
+			key !== "IP" &&
+			key !== "showRed" &&
+			key !== "showSuccess"
+		)
 			modbusDevice[key] = parseInt(modbusDevice[key]);
 	});
-	axios
-		.post("/api/create_device", modbusDevice)
-		.then(function (response) {
-			mutate("/api/device");
-		})
-		.catch(function () {});
+	return axios.post("/api/create_device", modbusDevice);
 }
 export function updateModbusDevice(modbusDevice) {}
+export function deleteModbusDevice(modbusDeviceId) {
+	return axios.delete("/api/delete_device", {
+		modbusDeviceId: modbusDeviceId,
+	});
+}

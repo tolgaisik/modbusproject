@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Accordion from "react-bootstrap/Accordion";
 import "../assets/device.scss";
+import { RedAlert, SuccessAlert } from "./Notification";
 const registerNames = [
 	{
 		registerName: "İsim",
@@ -92,7 +93,10 @@ const registerNames = [
 export default class AddDevice extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			showRed: false,
+			showSuccess: false,
+		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
@@ -102,7 +106,14 @@ export default class AddDevice extends React.Component {
 	}
 	handleSubmit(event) {
 		event.preventDefault();
-		createNewModbusDevice(this.state);
+		createNewModbusDevice(this.state)
+			.then(() => {
+				mutate("/api/device");
+				this.setState({ showSuccess: true });
+			})
+			.catch(() => {
+				this.setState({ showRed: true });
+			});
 	}
 	render() {
 		return (
@@ -127,6 +138,19 @@ export default class AddDevice extends React.Component {
 						</Form>
 					</Accordion.Body>
 				</Accordion.Item>
+				<RedAlert
+					show={this.state.showRed}
+					headText="Başarılı!"
+					bodyText={
+						this.state.name &&
+						this.state.name.concat(" cihazı başarıyla eklendi.")
+					}
+				></RedAlert>
+				<SuccessAlert
+					show={this.state.showSuccess}
+					headText="Hata !"
+					bodyText="Cihaz Eklenemedi."
+				></SuccessAlert>
 			</Accordion>
 		);
 	}
@@ -146,7 +170,6 @@ class Register extends React.Component {
 				<Form.Label column>{this.props.registerName}</Form.Label>
 				<Col sm="6">
 					<Form.Control
-						required
 						name={this.props.targetName}
 						onChange={this.props.handleChange}
 						placeholder={this.props.targetName}

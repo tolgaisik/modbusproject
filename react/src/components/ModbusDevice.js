@@ -9,9 +9,8 @@ import "../assets/modbusdevice.scss";
 function prepareList(device) {
 	const retval = [];
 	const deviceList = Object.keys(device);
-	const notInclude = ["name", "status", "ip", "generated_at", "id"];
 	for (let i = 0; i < deviceList.length; ++i) {
-		if (!notInclude.includes(deviceList[i])) retval.push(deviceList[i]);
+		retval.push(deviceList[i]);
 	}
 	return retval;
 }

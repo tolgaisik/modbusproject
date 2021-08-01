@@ -1,6 +1,6 @@
 from datetime import datetime, date
 import os
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
 from src.config import DevelopmentConfig, ProductionConfig
 from src.modbus import ModbusManager
@@ -68,8 +68,12 @@ def create_device():
     with app.app_context():
         db.session.add(modbus_device)
         db.session.commit()
-        return jsonify({"status": 200})
-    return jsonify({"status": 500})
+        return Response(
+            "{'message':'Cihaz Eklendi.'}", status=200, mimetype="application/json"
+        )
+    return Response(
+        "{'message':'Cihaz Eklenemedi.'}", status=500, mimetype="application/json"
+    )
 
 
 @app.route("/api/device", methods=["GET"])
@@ -79,6 +83,11 @@ def get_avalaible_devices():
         schema = ModbusDeviceSchema(many=True)
         result = schema.dump(query_result)
         return jsonify(result)
+
+
+@app.route("/api/delete_device", methods=["GET", "POST"])
+def delete_modbus_device():
+    device_id = request.get_json()
 
 
 @app.route("/api", methods=["GET"])
