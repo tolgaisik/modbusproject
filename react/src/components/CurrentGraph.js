@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from "react";
-import useSWR, { SWRConfig } from "swr";
-import { Button, ButtonGroup, Row, Col, Spinner } from "react-bootstrap";
-import {
-	LineChart,
-	Line,
-	XAxis,
-	Tooltip,
-	Legend,
-	CartesianGrid,
-} from "recharts";
+import React, { useState } from "react";
+import useSWR from "swr";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Spinner from "react-bootstrap/Spinner";
+import { LineChart, Line, XAxis, Tooltip, Legend } from "recharts";
 import "../assets/currentgraph.scss";
 import ContainerHeader from "./ContainerHeader";
 const headerText = "Akım grafiği ortalama saatlik değerleri göstermektedir.";
@@ -20,40 +15,10 @@ export default function CurrentGraph({ width_, deviceId }) {
 	const [interval, setInterval] = useState([]);
 	return (
 		<div className="current">
-			{data === undefined ? (
-				<Spinner animation="border" role="status"></Spinner>
-			) : (
+			{data ? (
 				<Row>
 					<Col sm={12} lg={12} md={12}>
 						<ContainerHeader text={headerText} />
-					</Col>
-					<Col>
-						<ButtonGroup className="mx-auto">
-							<Button
-								className="mb-4 ml-5"
-								size="sm"
-								variant="outline-danger"
-								onClick={() => setInterval()}
-							>
-								gün
-							</Button>
-							<Button
-								className="mb-4"
-								size="sm"
-								variant="outline-danger"
-								onClick={() => setInterval()}
-							>
-								hafta
-							</Button>
-							<Button
-								className="mb-4"
-								size="sm"
-								variant="outline-danger"
-								onClick={() => setInterval()}
-							>
-								ay
-							</Button>
-						</ButtonGroup>
 					</Col>
 					<Col sm={12} lg={12} md={12} className="center">
 						<LineChart
@@ -85,6 +50,8 @@ export default function CurrentGraph({ width_, deviceId }) {
 						</LineChart>
 					</Col>
 				</Row>
+			) : (
+				<Spinner animation="border" role="status"></Spinner>
 			)}
 		</div>
 	);

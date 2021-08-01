@@ -5,10 +5,10 @@ export default function StatusIcon({ status }) {
 	return status === true ? <Green /> : <Red />;
 }
 
-function Red() {
+export function Red() {
 	return <ExclamationDiamond className="red"></ExclamationDiamond>;
 }
 
-function Green() {
+export function Green() {
 	return <CheckLg className="green"></CheckLg>;
 }

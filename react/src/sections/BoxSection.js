@@ -1,22 +1,26 @@
 import React from "react";
-import useSWR from "swr";
 import { Row, Col, Spinner } from "react-bootstrap";
-import ValueBox from "../components/ValueBox";
-import CashBox from "../components/CashBox";
-import WalletBox from "../components/WalletBox";
+import Box from "../components/Box";
+import { CurrencyDollar, Clock } from "react-bootstrap-icons";
 function BoxSection() {
-    return (
-        <Row>
-            <Col xl={4} lg={4} md={4} sm={4}>
-                <ValueBox />
-            </Col>
-            <Col xl={4} lg={4} md={4} sm={4}>
-                <CashBox />
-            </Col>
-            <Col xl={4} lg={4} md={4} sm={4}>
-                <WalletBox />
-            </Col>
-        </Row>
-    );
+	return (
+		<Row>
+			<Col xl={4} lg={4} md={4} sm={4}>
+				<Box deviceId={1} apiUrl="power_day" titleText="GÜNLÜK KAZANÇ">
+					<CurrencyDollar />
+				</Box>
+			</Col>
+			<Col xl={4} lg={4} md={4} sm={4}>
+				<Box deviceId={1} apiUrl="power_day" titleText="GÜNLÜK KAZANÇ">
+					<CurrencyDollar />
+				</Box>
+			</Col>
+			<Col xl={4} lg={4} md={4} sm={4}>
+				<Box deviceId={1} apiUrl="voltage_day" titleText="MAX AKIM">
+					<Clock></Clock>
+				</Box>
+			</Col>
+		</Row>
+	);
 }
 export default BoxSection;

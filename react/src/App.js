@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import Sidebar from "./components/Sidebar";
 import Docs from "./pages/Docs";
 import MyDevices from "./pages/MyDevices";
-import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
+import Home from "./pages/Home";
 import "./assets/main.scss";
 
 export default function App() {
@@ -23,8 +23,11 @@ export default function App() {
 					<Route exact path="/device">
 						<MyDevices />
 					</Route>
+					<Route exact path="/dashboard">
+						<Dashboard />
+					</Route>
 					<Route exact path="/">
-						<Home />
+						<Home></Home>
 					</Route>
 				</Switch>
 			</div>

@@ -1,63 +1,167 @@
 import React from "react";
-import {
-	InputGroup,
-	FormControl,
-	Card,
-	Button,
-	Accordion,
-} from "react-bootstrap";
+import PropTypes from "prop-types";
+import { createNewModbusDevice } from "../api/crud";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Accordion from "react-bootstrap/Accordion";
 import "../assets/device.scss";
-import { PlusSquare } from "react-bootstrap-icons";
-
-export default function AddDevice({ deviceId }) {
-	return (
-		<div className="add-device my-4">
-			<Accordion defaultActiveKey="1">
-				<Card>
-					<Card.Header>
-						<Accordion.Toggle
-							as={Button}
-							variant="link"
-							eventKey="0"
-							className="accordion-btn"
-						>
-							Yeni Cihaz Ekle
-							<PlusSquare className="plus" />
-						</Accordion.Toggle>
-					</Card.Header>
-
-					<Accordion.Collapse eventKey="0">
-						<Card.Body>
-							<Register></Register>
-							<Register></Register>
-							<Register></Register>
-							<Register></Register>
-						</Card.Body>
-					</Accordion.Collapse>
-				</Card>
+const registerNames = [
+	{
+		registerName: "İsim",
+		targetName: "name",
+	},
+	{
+		registerName: "İP Adresi",
+		targetName: "IP",
+	},
+	{
+		registerName: "Frekans",
+		targetName: "F",
+	},
+	{
+		registerName: "Akım A",
+		targetName: "IA",
+	},
+	{
+		registerName: "Akım B",
+		targetName: "IB",
+	},
+	{
+		registerName: "Akım C",
+		targetName: "IC",
+	},
+	{
+		registerName: "Güç",
+		targetName: "P",
+	},
+	{
+		registerName: "Güç Çarpanı (PF)",
+		targetName: "PF",
+	},
+	{
+		registerName: "Q",
+		targetName: "Q",
+	},
+	{
+		registerName: "SS",
+		targetName: "SS",
+	},
+	{
+		registerName: "Voltage AB",
+		targetName: "VAB",
+	},
+	{
+		registerName: "Voltage AC",
+		targetName: "VAC",
+	},
+	{
+		registerName: "Voltage AN",
+		targetName: "VAN",
+	},
+	{
+		registerName: "Voltage BC",
+		targetName: "VBC",
+	},
+	{
+		registerName: "Voltage BN",
+		targetName: "VBN",
+	},
+	{
+		registerName: "Voltage CN",
+		targetName: "VCN",
+	},
+	{
+		registerName: "WPNEG",
+		targetName: "WPNEG",
+	},
+	{
+		registerName: "WPPOS",
+		targetName: "WPPOS",
+	},
+	{
+		registerName: "WQPOS",
+		targetName: "WQPOS",
+	},
+	{
+		registerName: "WQNEG",
+		targetName: "WQNEG",
+	},
+];
+export default class AddDevice extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {};
+		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+	handleChange(event) {
+		const name = event.target.name;
+		this.setState({ [name]: event.target.value });
+	}
+	handleSubmit(event) {
+		event.preventDefault();
+		createNewModbusDevice(this.state);
+	}
+	render() {
+		return (
+			<Accordion className="add-device my-1">
+				<Accordion.Item eventKey="0">
+					<Accordion.Header>Yeni Cihaz Ekle </Accordion.Header>
+					<Accordion.Body>
+						<Form onSubmit={this.handleSubmit}>
+							{registerNames.map((register, index) => {
+								return (
+									<Register
+										key={index}
+										registerName={register.registerName}
+										targetName={register.targetName}
+										handleChange={this.handleChange}
+									/>
+								);
+							})}
+							<Button type="submit" className="custom-btn">
+								Kaydet
+							</Button>
+						</Form>
+					</Accordion.Body>
+				</Accordion.Item>
 			</Accordion>
-		</div>
-	);
+		);
+	}
 }
 
-function Register({ registerId }) {
-	return (
-		<div>
-			<InputGroup className="mb-3">
-				<FormControl
-					placeholder="register adres"
-					aria-label="Recipient's username"
-					aria-describedby="basic-addon2"
-				/>
-				<Button variant="outline-primary" id="button-addon2">
-					Test
-				</Button>
-				<RegisterValue></RegisterValue>
-			</InputGroup>
-		</div>
-	);
+class Register extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+	render() {
+		return (
+			<Form.Group
+				as={Row}
+				className="mb-3"
+				controlId="formPlaintextPassword"
+			>
+				<Form.Label column>{this.props.registerName}</Form.Label>
+				<Col sm="6">
+					<Form.Control
+						required
+						name={this.props.targetName}
+						onChange={this.props.handleChange}
+						placeholder={this.props.targetName}
+						type="text"
+					/>
+				</Col>
+				<Col>
+					<Button variant="outline-danger">Test</Button>
+				</Col>
+			</Form.Group>
+		);
+	}
 }
-
-function RegisterValue() {
-	return <div></div>;
-}
+Register.propTypes = {
+	registerName: PropTypes.string.isRequired,
+	targetName: PropTypes.string.isRequired,
+	handleChange: PropTypes.func.isRequired,
+};

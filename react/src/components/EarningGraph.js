@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import useSWR from "swr";
 import { BarChart, Bar, XAxis, Tooltip, Legend } from "recharts";
-import { Button, Row, Col, ButtonGroup, Spinner } from "react-bootstrap";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Spinner from "react-bootstrap/Spinner";
 import ContainerHeader from "./ContainerHeader";
 import "../assets/earninggraph.scss";
 const headerText =
@@ -22,34 +24,6 @@ export default function EarningGraph({ width_, deviceId }) {
 				<Row>
 					<Col sm={12} lg={12} md={12}>
 						<ContainerHeader text={headerText} />
-					</Col>
-					<Col sm={12} lg={12} md={12}>
-						<ButtonGroup className="mx-auto">
-							<Button
-								className="mb-4 ml-5"
-								size="sm"
-								variant="outline-danger"
-								onClick={() => setInterval([])}
-							>
-								gün
-							</Button>
-							<Button
-								className="mb-4"
-								size="sm"
-								variant="outline-danger"
-								onClick={() => setInterval([])}
-							>
-								hafta
-							</Button>
-							<Button
-								className="mb-4"
-								size="sm"
-								variant="outline-danger"
-								onClick={() => setInterval([])}
-							>
-								ay
-							</Button>
-						</ButtonGroup>
 					</Col>
 					<Col sm={12} lg={12} md={12} className="center">
 						<BarChart

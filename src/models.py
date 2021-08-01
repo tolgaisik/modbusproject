@@ -5,28 +5,48 @@ db = SQLAlchemy()
 ma = Marshmallow()
 
 
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String)
+    email = db.Column(db.String)
+    password = db.Column(db.String)
+    role = db.Column(db.Integer)
+    group_id = db.Column(db.Integer)
+
+
+class UserSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "name", "email", "password", "role", "group_id")
+
+
 class ModbusDevice(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    IP = db.Column(db.String)
+    name = db.Column(db.String, nullable=False)
+    status = db.Column(db.Integer)
+    IP = db.Column(db.String, nullable=False)
     F = db.Column(db.Integer)
-    IA = db.Column(db.Float)
-    IB = db.Column(db.Float)
-    IC = db.Column(db.Float)
-    P = db.Column(db.Float)
-    PF = db.Column(db.Float)
-    Q = db.Column(db.Float)
-    SS = db.Column(db.Float)
-    VAB = db.Column(db.Float)
-    VAC = db.Column(db.Float)
-    VAN = db.Column(db.Float)
-    VBC = db.Column(db.Float)
-    VBN = db.Column(db.Float)
-    VCN = db.Column(db.Float)
-    WPNEG = db.Column(db.Float)
-    WPPOS = db.Column(db.Float)
-    WQPOS = db.Column(db.Float)
-    WQNEG = db.Column(db.Float)
-    generated_at = db.Column(db.DateTime)
+    IA = db.Column(db.Integer)
+    IB = db.Column(db.Integer)
+    IC = db.Column(db.Integer)
+    P = db.Column(db.Integer)
+    PF = db.Column(db.Integer)
+    Q = db.Column(db.Integer)
+    SS = db.Column(db.Integer)
+    VAB = db.Column(db.Integer)
+    VAC = db.Column(db.Integer)
+    VAN = db.Column(db.Integer)
+    VBC = db.Column(db.Integer)
+    VBN = db.Column(db.Integer)
+    VCN = db.Column(db.Integer)
+    WPNEG = db.Column(db.Integer)
+    WPPOS = db.Column(db.Integer)
+    WQPOS = db.Column(db.Integer)
+    WQNEG = db.Column(db.Integer)
+    created_at = db.Column(db.DateTime)
+    updated_at = db.Column(db.DateTime)
+    register_value = db.relationship(
+        "ModbusRegisterValue", backref="modbus_device", lazy=True
+    )
 
     def __init__(self, my_dict):
         for key in my_dict:
@@ -40,7 +60,10 @@ class ModbusDeviceSchema(ma.Schema):
     class Meta:
         fields = (
             "id",
-            "IP" "F",
+            "name",
+            "status",
+            "IP",
+            "F",
             "IA",
             "IB",
             "IC",
@@ -58,30 +81,32 @@ class ModbusDeviceSchema(ma.Schema):
             "WPPOS",
             "WQPOS",
             "WQNEG",
-            "generated_at",
+            "created_at",
+            "updated_at",
         )
 
 
 class ModbusRegisterValue(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    device_id = db.Column(db.Integer, db.ForeignKey("modbus_device.id"), nullable=False)
     F = db.Column(db.Integer)
-    IA = db.Column(db.Float)
-    IB = db.Column(db.Float)
-    IC = db.Column(db.Float)
-    P = db.Column(db.Float)
-    PF = db.Column(db.Float)
-    Q = db.Column(db.Float)
-    SS = db.Column(db.Float)
-    VAB = db.Column(db.Float)
-    VAC = db.Column(db.Float)
-    VAN = db.Column(db.Float)
-    VBC = db.Column(db.Float)
-    VBN = db.Column(db.Float)
-    VCN = db.Column(db.Float)
-    WPNEG = db.Column(db.Float)
-    WPPOS = db.Column(db.Float)
-    WQPOS = db.Column(db.Float)
-    WQNEG = db.Column(db.Float)
+    IA = db.Column(db.Integer)
+    IB = db.Column(db.Integer)
+    IC = db.Column(db.Integer)
+    P = db.Column(db.Integer)
+    PF = db.Column(db.Integer)
+    Q = db.Column(db.Integer)
+    SS = db.Column(db.Integer)
+    VAB = db.Column(db.Integer)
+    VAC = db.Column(db.Integer)
+    VAN = db.Column(db.Integer)
+    VBC = db.Column(db.Integer)
+    VBN = db.Column(db.Integer)
+    VCN = db.Column(db.Integer)
+    WPNEG = db.Column(db.Integer)
+    WPPOS = db.Column(db.Integer)
+    WQPOS = db.Column(db.Integer)
+    WQNEG = db.Column(db.Integer)
     generated_at = db.Column(db.DateTime)
 
     def __init__(self, my_dict):

@@ -1,9 +1,12 @@
 import json
 import os
 from datetime import datetime, timedelta
+import time
 from src.modbus import ModbusManager
 from flask_apscheduler import APScheduler
 from src.models import (
+    ModbusDevice,
+    ModbusDeviceSchema,
     ModbusRegisterValue,
     ModbusRegisterValueSchema,
     TotalEnergyProductionPerDay,
@@ -20,23 +23,27 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 scheduler = APScheduler()
-registers = Utils().get_registers()
 
 
 @scheduler.task("interval", id="modbus_recorder", max_instances=2, seconds=20)
 def read_registers_from_modbus():
-    pass
-    """print("scheduled event triggered")
-    global registers
-    manager = ModbusManager()
-    response = _read_holding_registers(registers)
-    if response is None:
-        return
-    response["generated_at"] = datetime.now()
-    obj = ModbusRegisterValue(response)
     with scheduler.app.app_context():
-        db.session.add(obj)
-        db.session.commit()"""
+        query_result = db.session.query(ModbusDevice).all()
+        schema = ModbusDeviceSchema(many=True)
+        result = schema.dump(query_result)
+        if len(result) == 0:
+            return
+        for modbus_device in result:
+            manager = ModbusManager(modbus_device["IP"])
+            register_adress = Utils().split_register_adresses(modbus_device)
+            response = manager.get_holding_registers(register_adress)
+            if response is None:
+                return
+            response["device_id"] = modbus_device["id"]
+            response["generated_at"] = datetime.now()
+            obj = ModbusRegisterValue(response)
+            db.session.add(obj)
+            db.session.commit()
 
 
 @scheduler.task("cron", max_instances=2, hour="*")

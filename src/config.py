@@ -14,7 +14,9 @@ class ProductionConfig(Config):
 class DevelopmentConfig(Config):
     DEBUG = True
     DATABASE_URL = "postgres://postgres:12345678@localhost/mod"
-    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:12345678@localhost/mod"
+    SQLALCHEMY_DATABASE_URI = (
+        "postgresql://postgres:12345678@localhost/mod?client_encoding=utf8"
+    )
     IMAGE_UPLOADS = "/home/username/projects/my_app/app/static/images/uploads"
     SESSION_COOKIE_SECURE = False
 

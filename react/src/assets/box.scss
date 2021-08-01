@@ -1,0 +1,22 @@
+$secondary-color: #dc3545;
+.cash-box {
+	height: 6em;
+	transition: 0.1s ease;
+	border: 1px solid rgba(97, 96, 96, 0.103) !important;
+	border-radius: 13px !important;
+	white-space: nowrap;
+	margin-bottom: 15px;
+}
+.cash-box:hover {
+	transform: scale(1.05);
+}
+.cash-box .box-text {
+	font-size: 1em;
+	white-space: nowrap;
+}
+.dollar {
+	font-size: 24px;
+}
+.box-icon {
+	font-size: 2em;
+}

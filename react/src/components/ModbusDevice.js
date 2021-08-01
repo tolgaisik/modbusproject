@@ -1,36 +1,59 @@
 import React from "react";
-import StatusIcon from "./StatusIcon";
-import { Card, Accordion, Button } from "react-bootstrap";
-export default function ModbusDevice({ modbusDevice }) {
-	return (
-		<div className="add-device my-4">
-			<Accordion defaultActiveKey="1">
-				<Card>
-					<Card.Header>
-						<Accordion.Toggle
-							as={Button}
-							variant="link"
-							eventKey="0"
-							className="accordion-btn"
-						>
-							{modbusDevice.name}&nbsp;&nbsp;{modbusDevice.ip}
-							&nbsp;&nbsp;&nbsp;
-							<StatusIcon
-								status={modbusDevice.status}
-							></StatusIcon>
-						</Accordion.Toggle>
-					</Card.Header>
-					<Accordion.Collapse eventKey="0">
-						<Card.Body>
-							<DeviceBody></DeviceBody>
-						</Card.Body>
-					</Accordion.Collapse>
-				</Card>
-			</Accordion>
-		</div>
-	);
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Accordion from "react-bootstrap/Accordion";
+import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import "../assets/modbusdevice.scss";
+
+function prepareList(device) {
+	const retval = [];
+	const deviceList = Object.keys(device);
+	const notInclude = ["name", "status", "ip", "generated_at", "id"];
+	for (let i = 0; i < deviceList.length; ++i) {
+		if (!notInclude.includes(deviceList[i])) retval.push(deviceList[i]);
+	}
+	return retval;
 }
 
-function DeviceBody() {
-	return <div>Hello world</div>;
+export default function ModbusDevice({ modbusDevice }) {
+	const preparedList = prepareList(modbusDevice);
+	return (
+		<Accordion className="add-device my-2">
+			<Accordion.Item eventKey="0">
+				<Accordion.Header>
+					{modbusDevice.name}&nbsp;&nbsp;{modbusDevice.ip}
+					&nbsp;&nbsp;&nbsp;
+				</Accordion.Header>
+				<Accordion.Body>
+					<Row>
+						{preparedList.map((item, index) => {
+							return (
+								<Col key={index} lg={6} md={6}>
+									<span>
+										{item} register adresi :
+										&nbsp;&nbsp;&nbsp;
+										{modbusDevice[item]}
+									</span>
+								</Col>
+							);
+						})}
+					</Row>
+					<Buttons />
+				</Accordion.Body>
+			</Accordion.Item>
+		</Accordion>
+	);
+}
+function Buttons() {
+	return (
+		<ButtonGroup className="mt-3">
+			<Button className="custom-btn" variant="outline-danger">
+				Düzenle
+			</Button>
+			<Button variant="outline-primary" className="custom-btn">
+				Sil
+			</Button>
+		</ButtonGroup>
+	);
 }

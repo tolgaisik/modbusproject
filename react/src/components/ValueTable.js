@@ -1,7 +1,8 @@
 import React from "react";
-import useSWR, { SWRConfig } from "swr";
-import { Table, Row, Col, Spinner } from "react-bootstrap";
-import { ArrowRepeat } from "react-bootstrap-icons";
+import useSWR from "swr";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Spinner from "react-bootstrap/Spinner";
 import "../assets/valuetable.scss";
 const ValueTable = ({ deviceId }) => {
 	const { data, error, isValidating } = useSWR("/api", {

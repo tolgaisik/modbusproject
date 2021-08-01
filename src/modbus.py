@@ -9,11 +9,14 @@ UNIT_ID = 1
 
 
 class ModbusManager(ModbusClient):
-    def __init__(self, ip):
+    def __init__(self, ip=None):
         try:
             super().__init__(ip, PORT, auto_open=True, auto_close=True)
         except Exception:
             raise Exception("ModbusManager can not be created.")
+
+    def create_modbus_device(self, device):
+        pass
 
     def get_holding_registers(self, holding_registers):
         retval = 0
@@ -21,10 +24,8 @@ class ModbusManager(ModbusClient):
         self.unit_id(UNIT_ID)
         number_of_registers = 1
         if self.open():
-            for register in holding_registers:
-                response = self.read_holding_registers(
-                    holding_registers[register]["registerAddress"], number_of_registers
-                )
+            for register, adress in holding_registers.items():
+                response = self.read_holding_registers(adress, number_of_registers)
                 if response == None or len(response) == 0:
                     return None
                 retval = response[0]

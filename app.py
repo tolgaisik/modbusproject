@@ -5,6 +5,8 @@ from flask_cors import CORS
 from src.config import DevelopmentConfig, ProductionConfig
 from src.modbus import ModbusManager
 from src.models import (
+    ModbusDevice,
+    ModbusDeviceSchema,
     ModbusRegisterValue,
     ModbusRegisterValueSchema,
     TotalEnergyProductionPerDay,
@@ -20,6 +22,7 @@ from src.models import (
 from src.tasks import scheduler
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from src.utils import Utils
 
 
 def create_app():
@@ -39,6 +42,12 @@ def create_app():
     return application
 
 
+def init_db():
+    with app.app_context():
+        db.drop_all()
+        db.create_all()
+
+
 app = create_app()
 db.init_app(app)
 scheduler.start()
@@ -49,17 +58,32 @@ def test():
     return "test"
 
 
-@app.route("/createdevice", methods=["GET", "POST"])
+@app.route("/api/create_device", methods=["GET", "POST"])
 def create_device():
-    device = request.data
+    device = request.get_json()
+    device["status"] = 1
+    device["created_at"] = datetime.now()
+    modbus_device = ModbusDevice(device)
+    print(device["name"])
+    with app.app_context():
+        db.session.add(modbus_device)
+        db.session.commit()
+        return jsonify({"status": 200})
+    return jsonify({"status": 500})
 
-    pass
+
+@app.route("/api/device", methods=["GET"])
+def get_avalaible_devices():
+    with app.app_context():
+        query_result = db.session.query(ModbusDevice)
+        schema = ModbusDeviceSchema(many=True)
+        result = schema.dump(query_result)
+        return jsonify(result)
 
 
 @app.route("/api", methods=["GET"])
 def read_table_content():
     with app.app_context():
-        print(app.url_map)
         query_result = (
             db.session.query(ModbusRegisterValue)
             .order_by(ModbusRegisterValue.id.desc())
@@ -67,10 +91,14 @@ def read_table_content():
         )
         schema = ModbusRegisterValueSchema(many=True)
         result = schema.dump(query_result)
+        if not len(result) == 0:
+            result[0]["generated_at"] = Utils().change_time_format(
+                result[0]["generated_at"]
+            )
         return jsonify(result)
 
 
-@app.route("/api/current_day", methods=["GET"])
+@app.route("/api/current_week", methods=["GET"])
 def get_average_current_value_per_hour_week():
     with app.app_context():
         now = datetime.now()

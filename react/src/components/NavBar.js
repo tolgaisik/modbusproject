@@ -1,140 +1,32 @@
 import React from "react";
-import { useLocation, Link } from "react-router-dom";
-import { Navbar, Row, Col } from "react-bootstrap";
-import { House, FileCheck, Gear, PersonCheck } from "react-bootstrap-icons";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
+import { PersonCheck } from "react-bootstrap-icons";
 import "../assets/navbar.scss";
 
-const NavBar = () => {
-	const location = useLocation();
-	const cssClass = " cursor-border ";
-	const defaultClass = " link ";
+function NavBar() {
 	return (
-		<Navbar className="justify-content-center navbar-custom">
-			<Link
-				to="/"
-				className={
-					location.pathname == "/"
-						? defaultClass + cssClass
-						: defaultClass
-				}
-			>
-				<Row>
-					<Col
-						sm={12}
-						lg={12}
-						md={12}
-						xs={12}
-						xl={12}
-						className="text-center"
-					>
-						<House />
-					</Col>
-					<Col
-						sm={12}
-						lg={12}
-						md={12}
-						xs={12}
-						xl={12}
-						className="text-center"
-					>
-						<span className="nav-text">ANASAYFA</span>
-					</Col>
-				</Row>
-			</Link>
-			<Link
-				to="/docs"
-				className={
-					location.pathname == "/docs"
-						? defaultClass + cssClass
-						: defaultClass
-				}
-			>
-				<Row>
-					<Col
-						sm={12}
-						lg={12}
-						md={12}
-						xs={12}
-						xl={12}
-						className="text-center"
-					>
-						<FileCheck />
-					</Col>
-					<Col
-						sm={12}
-						lg={12}
-						md={12}
-						xs={12}
-						xl={12}
-						className="text-center"
-					>
-						<span className="nav-text">DÖKÜMAN</span>
-					</Col>
-				</Row>
-			</Link>
-			<Link
-				to="/settings"
-				className={
-					location.pathname == "/settings"
-						? defaultClass + cssClass
-						: defaultClass
-				}
-			>
-				<Row>
-					<Col
-						sm={12}
-						lg={12}
-						md={12}
-						xs={12}
-						xl={12}
-						className="text-center"
-					>
-						<Gear />
-					</Col>
-					<Col
-						sm={12}
-						lg={12}
-						md={12}
-						xs={12}
-						xl={12}
-						className="text-center"
-					>
-						<span className="nav-text">AYARLAR!</span>
-					</Col>
-				</Row>
-			</Link>
-			<Link
-				to="/device"
-				className={
-					location.pathname == "/device"
-						? defaultClass + cssClass
-						: defaultClass
-				}
-			>
-				<Row>
-					<Col
-						sm={12}
-						lg={12}
-						md={12}
-						xs={12}
-						xl={12}
-						className="text-center"
-					>
-						<PersonCheck />
-					</Col>
-					<Col
-						sm={12}
-						lg={12}
-						md={12}
-						xs={12}
-						xl={12}
-						className="text-center"
-					>
-						<span className="nav-text">CİHAZLAR</span>
-					</Col>
-				</Row>
-			</Link>
+		<Navbar className="px-5" bg="light" expand="lg">
+			<Navbar.Brand className="nav-brand px-1" href="/">
+				AntLabsEnergy
+			</Navbar.Brand>
+			<Navbar.Toggle aria-controls="responsive-navbar-nav" />
+			<Navbar.Collapse id="responsive-navbar-nav">
+				<Nav className="mr-auto my-2 my-lg-0" navbarScroll>
+					<Nav.Link href="/dashboard">Dashboard</Nav.Link>
+					<Nav.Link href="/device">Device</Nav.Link>
+					<Nav.Link href="/docs">Documents</Nav.Link>
+					<Nav.Link href="/settings">Settings</Nav.Link>
+					<Nav.Link href="/settings">
+						<PersonCheck
+							className="float-right"
+							style={{ fontSize: 24 }}
+						></PersonCheck>
+					</Nav.Link>
+				</Nav>
+			</Navbar.Collapse>
 		</Navbar>
 	);
-};
+}
 export default NavBar;
